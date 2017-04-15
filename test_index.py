@@ -9,7 +9,7 @@ if __name__ == '__main__':
     var = itertools.cycle(range(0, 100))
 
     def update_thread():
-        table.update('a', var.next())
+        table.update(a=var.next())
         time.sleep(1)
     t = threading.Thread(target=update_thread)
     t.setDaemon(True)

@@ -8,10 +8,11 @@ class VariableTable(object):
         self.update_time = {}
         self.last_extract_time = 0
 
-    def update(self, name, value):
-        # type: (str, object) -> None
-        self.value[name] = value
-        self.update_time[name] = time.time()
+    def update(self, **kwargs):
+        now = time.time()
+        for name, value in kwargs.iteritems():
+            self.value[name] = value
+            self.update_time[name] = now
 
     def extract(self):
         # type: () -> dict
