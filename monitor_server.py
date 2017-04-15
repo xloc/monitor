@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask.templating import render_template
 
 from storage import table
@@ -8,12 +8,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('play.html')
 
 
-@app.route('/get_vars', methods=['POST'])
+@app.route('/get_vars', methods=['GET', 'POST'])
 def get_vars():
-    return table.extract()
+    print 'called'
+    return jsonify(table.extract())
 
 if __name__ == '__main__':
     app.run()

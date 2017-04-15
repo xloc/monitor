@@ -6,9 +6,7 @@ from monitor_server import app
 from storage import table
 
 if __name__ == '__main__':
-    def var_iter():
-        yield itertools.cycle(range(0, 100))
-    var = var_iter()
+    var = itertools.cycle(range(0, 100))
 
     def update_thread():
         table.update('a', var.next())
