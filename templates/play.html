@@ -8,6 +8,18 @@
 <script type="text/javascript">
   var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 </script>
+<style type="text/css">
+#title{text-align:center;}
+#show-data,#error-message{
+	background:red;
+	font-size:300%;
+	vertical-align:center;
+	text-align:center;
+	cols="45"; 
+	rows="50";
+	color:blue;
+}
+</style>
 <script type="text/javascript">
   $(function() {
         function postInfo(){
@@ -30,10 +42,10 @@
 </script>
 </head>
 <body>
-<h1>jQuery Example</h1>
-
-<div id="show-data"></div>
+<h1 id="title">jQuery Example</h1>
+<center>
+<textarea id="show-data"></textarea>
 <div id="error-message"></div>
-
+</center>
 </body>
 </html>
