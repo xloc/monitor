@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My first sys project</title>
+<script type="text/javascript"
+  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+<style type="text/css">
+#title{text-align:center;}
+#show-data,#error-message{
+	background:red;
+	font-size:300%;
+	vertical-align:center;
+	text-align:center;
+	cols="45"; 
+	rows="50";
+	color:blue;
+}
+</style>
+<script type="text/javascript">
+  $(function() {
+        function postInfo(){
+			$.ajax({
+				type: "POST",
+				url: $SCRIPT_ROOT + '/get_vars',
+				dataType: "json",
+				success: function(data) {
+				    console.log(data);
+					$("#show-data").html(data.a);		//绑定数据
+//					$(".class名").val(data);		//给input表单绑定数据
+					}, 
+				error: function(error) {
+					$("#error-message").html("aaa");
+					}
+			});
+		}
+		window.onload=postInfo();
+        });
+</script>
+</head>
+<body>
+<h1 id="title">jQuery Example</h1>
+<center>
+<textarea id="show-data"></textarea>
+<div id="error-message"></div>
+</center>
+</body>
+</html>
