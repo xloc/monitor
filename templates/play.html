@@ -21,25 +21,24 @@
 }
 </style>
 <script type="text/javascript">
-  $(function() {
-        function postInfo(){
-			$.ajax({
-				type: "POST",
-				url: $SCRIPT_ROOT + '/get_vars',
-				dataType: "json",
-				success: function(data) {
-				    console.log(data);
-					$("#show-data").html(data.a);		//绑定数据
-//					$(".class名").val(data);		//给input表单绑定数据
-					}, 
-				error: function(error) {
-					$("#error-message").html("aaa");
-					}
-			});
-            setTimeout(postInfo(),1000);
-		}
-		window.onload=postInfo();
-        });
+    setInterval(function(){postInfo();},3000);
+    function postInfo(){
+		$.ajax({
+			type: "GET",
+			url: $SCRIPT_ROOT + '/get_vars',
+			dataType: "json",
+			success: function(data) {
+			    console.log(data);
+				$("#show-data").html(data.a);		//绑定数据
+//				$(".class名").val(data);		//给input表单绑定数据
+				}, 
+			error: function(error) {
+				$("#error-message").html("aaa");
+				}
+		});
+        
+	}
+    
 </script>
 </head>
 <body>
