@@ -8,20 +8,9 @@
 <script type="text/javascript">
   var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 </script>
-<style type="text/css">
-#title{text-align:center;}
-#show-data,#error-message{
-	background:red;
-	font-size:300%;
-	vertical-align:center;
-	text-align:center;
-	cols="45"; 
-	rows="50";
-	color:blue;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="../static/style.css">
 <script type="text/javascript">
-    setInterval(function(){postInfo();},3000);
+    setInterval(function(){postInfo();},1000);
     function postInfo(){
 		$.ajax({
 			type: "GET",
@@ -41,8 +30,8 @@
     
 </script>
 </head>
-<body>
-<h1 id="title">jQuery Example</h1>
+<body id="bkground" background='../static/background1.jpg'>
+<h1 id="title">Monitor</h1>
 <center>
 <textarea id="show-data"></textarea>
 <div id="error-message"></div>
