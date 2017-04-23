@@ -20,10 +20,10 @@ if __name__ == '__main__':
     t.setDaemon(True)
     t.start()
 
-    table.add_var('a', 'img')
+    table.add_var('image', 'img')
 
     imgs = None
-    with open('b64_imgs') as f:
+    with open('b64_imgs.json') as f:
         imgs = json.load(f)
 
     def img_update_thread():
@@ -32,7 +32,7 @@ if __name__ == '__main__':
             table.update(image=var.next())
             time.sleep(1)
     tg = threading.Thread(target=img_update_thread)
-    t.setDaemon(True)
-    t.start()
+    tg.setDaemon(True)
+    tg.start()
 
     app.run(debug=True)

@@ -17,8 +17,8 @@
 			url: $SCRIPT_ROOT + '/get_vars',
 			dataType: "json",
 			success: function(data) {
-			    console.log(data);
-				$("#show-data").html(data.a);		//绑定数据
+			    console.log(data.vars);
+				$("#show-data").html(data.vars.a.value);		//绑定数据
 //				$(".class名").val(data);		//给input表单绑定数据
 				}, 
 			error: function(error) {
