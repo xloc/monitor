@@ -25,8 +25,7 @@ class VariableTable(object):
         # type: () -> dict
         result = {
             k: {'format': self.format[k], 'value': self.value[k]}
-            for k, updated_time in self.update_time.iteritems()
-            if updated_time > self.last_extract_time
+            for k in self.update_time.iterkeys()
         }
         result = {'vars': result}
 
