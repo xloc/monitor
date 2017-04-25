@@ -10,30 +10,42 @@
 </script>
 <link rel="stylesheet" type="text/css" href="../static/style.css">
 <script type="text/javascript">
-    setInterval(function(){postInfo();},1000);
+    var select;
+    function shift(object){
+        if(object.value=="start"){
+            select=setInterval(function(){postInfo();},1000);
+            object.value="stop";
+        }else{
+            clearInterval(select);
+            select=null;
+            object.value="start";
+        }
+    }
+    
     function postInfo(){
 		$.ajax({
 			type: "GET",
 			url: $SCRIPT_ROOT + '/get_vars',
 			dataType: "json",
 			success: function(data) {
-			    console.log(data.vars);
-				$("#show-data").html(data.vars.a.value);		//绑定数据
-//				$(".class名").val(data);		//给input表单绑定数据
+			    console.log(data);
+				$("#show-numbers").html(data.vars.a.value);		//绑定数据
+                $("#show-pictures").html(html='<img src="data:image/jpg;base64,'+data.vars.image.value+'">');
 				}, 
 			error: function(error) {
-				$("#error-message").html("aaa");
+				$("#show-numbers").html("error");
+                $("#show-pictures").html("error");
 				}
-		});
-        
-	}
+		});    
+	} 
     
 </script>
 </head>
-<body id="bkground" background='../static/background1.jpg'>
+<body>
 <h1 id="title">Monitor</h1>
 <center>
-<textarea id="show-data"></textarea>
+<input type="button" onclick="shift(this)" value="start">
+<div id="show-numbers"></div>
 <div id="error-message"></div>
 </center>
 </body>
