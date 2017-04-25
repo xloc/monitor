@@ -1,5 +1,5 @@
 #title{text-align:center;}
-#show-data,#error-message{
+#show-data,#show-pictures{
 	background:red;
 	font-size:300%;
 	vertical-align:center;
@@ -8,11 +8,3 @@
 	rows="50";
 	color:blue;
 }
-#bkground{ 
-position:fixed; 
-top:0; 
-left:0; 
-bottom:0; 
-right:0; 
-z-index:-1; 
-} 
