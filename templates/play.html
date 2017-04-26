@@ -1,43 +1,9 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>My first sys project</title>
-<script type="text/javascript"
-  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript">
-  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-</script>
-<script type="text/javascript">
-    setInterval(function () {
-        getVars(updateImageAndInteger);
-    },1000);
+{% extends "header.html" %}
 
-    function getVars(receivedCallback){
-		$.ajax({
-			type: "GET",
-			url: $SCRIPT_ROOT + '/get_vars',
-			dataType: "json",
-			success: receivedCallback,
-			error: function(error) {
-				console.error('Error during GET')
-            }
-		});
-    }
+{% block body %}
 
-    function updateImageAndInteger(data) {
-        $("#show-data").html(data.a);		//绑定数据
-        $("#show-img").html(html=
-            '<img src="data:image/jpg;base64,'
-            + data.image+'">')
-    }
-    
-</script>
-</head>
-<body>
-<p id="show-data"></p>
-<p id="show-img"></p>
+    <p id="show-data"></p>
+    <p id="show-img"></p>
+    <div id="error-message"></div>
 
-<div id="error-message"></div>
-</body>
-</html>
+{% endblock %}
