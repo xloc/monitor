@@ -98,3 +98,9 @@ class Table(object):
 
         return data
 
+    def extract_toc(self):
+        data = {}
+        for k, v in self.__class__.__dict__.iteritems():
+            if isinstance(v, Var):
+                data[k] = v.type
+
