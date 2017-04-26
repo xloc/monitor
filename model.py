@@ -12,6 +12,7 @@ class Var(object):
     def __init__(self, **kwargs):
         self.name = kwargs.get('name', None)
         self.default = kwargs.get('default', lambda: None)
+        self.type = kwargs.get('type', 'plain')
 
     def __get__(self, instance, owner):
         v = getattr(instance, '_'+self.name, _sentinel)
@@ -59,6 +60,7 @@ class StringVar(Var):
 class ImageVar(Var):
     def __init__(self, **kwargs):
         kwargs['default'] = lambda: numpy.array([[0]])
+        kwargs['type'] = 'img:jpg'
         super(ImageVar, self).__init__(**kwargs)
 
     def get_converter(self, value):
