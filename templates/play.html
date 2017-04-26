@@ -1,9 +1,23 @@
-{% extends "header.html" %}
+{% extends "layout.html" %}
 
-{% block body %}
+{% block image_zone %}
 
-    <p id="show-data"></p>
-    <p id="show-img"></p>
-    <div id="error-message"></div>
+    <div class="container">
 
+        <div class="card">
+            <div class="card-image z-depth-2" id="show-img">
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block var_zone %}
+
+    <ul class="collection">
+
+    <li class="collection-item" id="show-data"></li>
+
+    </ul>
 {% endblock %}
