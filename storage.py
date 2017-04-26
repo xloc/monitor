@@ -1,35 +1,9 @@
 import time
+import model as m
 
 
-class VariableTable(object):
-    def __init__(self):
-        self.value = {}
-        self.format = {}
-        
-        self.update_time = {}
-        self.last_extract_time = 0
-
-    def add_var(self, name, fmt):
-        self.format[name] = fmt
-
-    def update(self, **kwargs):
-        now = time.time()
-        for name, value in kwargs.iteritems():
-            if name in self.format.keys():
-                self.value[name] = value
-                self.update_time[name] = now
-            else:
-                raise ValueError('Update non-exist variable')
-
-    def extract(self):
-        # type: () -> dict
-        result = {
-            k: {'format': self.format[k], 'value': self.value[k]}
-            for k in self.update_time.iterkeys()
-        }
-        result = {'vars': result}
-
-        self.last_extract_time = time.time()
-        return result
+class VariableTable(m.Table):
+    a = m.IntegerVar()
+    image = m.Var(type='img:jpg')
 
 table = VariableTable()

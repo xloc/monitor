@@ -1,52 +1,9 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>My first sys project</title>
-<script type="text/javascript"
-  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript">
-  var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-</script>
-<link rel="stylesheet" type="text/css" href="../static/style.css">
-<script type="text/javascript">
-    var select;
-    function shift(object){
-        if(object.value=="start"){
-            select=setInterval(function(){postInfo();},1000);
-            object.value="stop";
-        }else{
-            clearInterval(select);
-            select=null;
-            object.value="start";
-        }
-    }
-    
-    function postInfo(){
-		$.ajax({
-			type: "GET",
-			url: $SCRIPT_ROOT + '/get_vars',
-			dataType: "json",
-			success: function(data) {
-			    console.log(data);
-				$("#show-numbers").html(data.vars.a.value);		//绑定数据
-                $("#show-pictures").html(html='<img src="data:image/jpg;base64,'+data.vars.image.value+'">');
-				}, 
-			error: function(error) {
-				$("#show-numbers").html("error");
-                $("#show-pictures").html("error");
-				}
-		});    
-	} 
-    
-</script>
-</head>
-<body>
-<h1 id="title">Monitor</h1>
-<center>
-<input type="button" onclick="shift(this)" value="start">
-<div id="show-numbers"></div>
-<div id="error-message"></div>
-</center>
-</body>
-</html>
+{% extends "header.html" %}
+
+{% block body %}
+
+    <p id="show-data"></p>
+    <p id="show-img"></p>
+    <div id="error-message"></div>
+
+{% endblock %}
