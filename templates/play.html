@@ -8,33 +8,36 @@
 <script type="text/javascript">
   var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 </script>
-<link rel="stylesheet" type="text/css" href="../static/style.css">
 <script type="text/javascript">
-    setInterval(function(){postInfo();},1000);
-    function postInfo(){
+    setInterval(function () {
+        getVars(updateImageAndInteger);
+    },1000);
+
+    function getVars(receivedCallback){
 		$.ajax({
 			type: "GET",
 			url: $SCRIPT_ROOT + '/get_vars',
 			dataType: "json",
-			success: function(data) {
-			    console.log(data.vars);
-				$("#show-data").html(data.a);		//绑定数据
-//				$(".class名").val(data);		//给input表单绑定数据
-				}, 
+			success: receivedCallback,
 			error: function(error) {
-				$("#error-message").html("aaa");
-				}
+				console.error('Error during GET')
+            }
 		});
-        
-	}
+    }
+
+    function updateImageAndInteger(data) {
+        $("#show-data").html(data.a);		//绑定数据
+        $("#show-img").html(html=
+            '<img src="data:image/jpg;base64,'
+            + data.image+'">')
+    }
     
 </script>
 </head>
-<body id="bkground" background='../static/background1.jpg'>
-<h1 id="title">Monitor</h1>
-<center>
-<textarea id="show-data"></textarea>
+<body>
+<p id="show-data"></p>
+<p id="show-img"></p>
+
 <div id="error-message"></div>
-</center>
 </body>
 </html>

@@ -13,7 +13,7 @@ if __name__ == '__main__':
     def int_update_thread():
         var = itertools.cycle(range(0, 100))
         while True:
-            table.a=var.next()
+            table.a = var.next()
             time.sleep(1)
 
     t = threading.Thread(target=int_update_thread)
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     def img_update_thread():
         var = itertools.cycle(imgs.itervalues())
         while True:
-            table.img=var.next()
+            table.image = var.next()
             time.sleep(1)
     tg = threading.Thread(target=img_update_thread)
     tg.setDaemon(True)

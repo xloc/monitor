@@ -13,7 +13,6 @@ def index():
 
 @app.route('/get_vars', methods=['GET', 'POST'])
 def get_vars():
-    print 'called'
     return jsonify(table.extract_all())
 
 if __name__ == '__main__':
