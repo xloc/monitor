@@ -5,8 +5,12 @@
     <div class="container">
 
         <div class="card">
-            <div class="card-image z-depth-2" id="show-img">
-            </div>
+            <div class="card-image z-depth-2" id="show-img"></div>
+            
+            {% for name, type in toc.iteritems() if type == 'img:jpg' %}
+            <div class="card-image" id="var-{{ name }}"></div>
+            {% endfor %}
+            
         </div>
 
     </div>
@@ -18,6 +22,10 @@
     <ul class="collection">
 
     <li class="collection-item" id="show-data"></li>
+
+    {% for name, type in toc.iteritems() if type in ['plain'] %}
+        <li class="collection-item" id="var-{{ name }}"> {{ name }}</li>
+    {% endfor %}
 
     </ul>
 {% endblock %}

@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('play.html')
+    return render_template('play.html', toc=table.extract_toc())
 
 
 @app.route('/get_vars', methods=['GET', 'POST'])

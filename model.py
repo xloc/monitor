@@ -104,3 +104,5 @@ class Table(object):
             if isinstance(v, Var):
                 data[k] = v.type
 
+        return data
+
