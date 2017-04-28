@@ -1,9 +1,10 @@
 import time
-import model as m
+from table_model import Table
+import variable_model as vm
 
 
-class VariableTable(m.Table):
-    a = m.IntegerVar()
-    image = m.Var(type='img:jpg')
+class VariableTable(Table):
+    a = vm.SupervisedVariable(vm.IntegerVar(), vm.PlainView())
 
 table = VariableTable()
+table_access = table.get_access_model()

@@ -15,6 +15,11 @@
             getVars(updateImageAndInteger);
         }, 1000);
 
+        toc = {a:{view_type:'plain'}};
+        renders = {
+            plain: function (name, value) {$('#'+name).text(value);}
+        };
+
         function getVars(receivedCallback) {
             $.ajax({
                 type: "GET",
@@ -28,10 +33,12 @@
         }
 
         function updateImageAndInteger(data) {
-            $("#show-data").html(data.a);		//绑定数据
-            $("#show-img").html(html =
-                '<img src="data:image/jpg;base64,'
-                + data.image + '">')
+            console.log(data)
+            for (var name in data){
+                if (data.hasOwnProperty(name)) {
+                    renders[toc[name].view_type](name, data[name])
+                }
+            }
         }
 
     </script>

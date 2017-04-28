@@ -4,7 +4,7 @@ import threading
 import time
 
 from monitor_server import app
-from storage import table
+from storage import table_access as table
 
 if __name__ == '__main__':
 
@@ -22,17 +22,17 @@ if __name__ == '__main__':
 
     # table.add_var('image', 'img')
 
-    imgs = None
-    with open('b64_imgs.json') as f:
-        imgs = json.load(f)
-
-    def img_update_thread():
-        var = itertools.cycle(imgs.itervalues())
-        while True:
-            table.image = var.next()
-            time.sleep(1)
-    tg = threading.Thread(target=img_update_thread)
-    tg.setDaemon(True)
-    tg.start()
+    # imgs = None
+    # with open('b64_imgs.json') as f:
+    #     imgs = json.load(f)
+    #
+    # def img_update_thread():
+    #     var = itertools.cycle(imgs.itervalues())
+    #     while True:
+    #         table.image = var.next()
+    #         time.sleep(1)
+    # tg = threading.Thread(target=img_update_thread)
+    # tg.setDaemon(True)
+    # tg.start()
 
     app.run(debug=True)
