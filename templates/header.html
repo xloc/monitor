@@ -17,7 +17,9 @@
 
         toc = {{ toc|tojson }};
         renders = {
-            plain: function (name, value) {$('#'+name).text(value);}
+        {% for name, func in renderer.iteritems() %}
+            "{{ name }}":{{ func|safe }},
+        {% endfor %}
         };
 
         function getVars(receivedCallback) {

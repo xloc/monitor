@@ -41,13 +41,25 @@ class Table(object):
 
         return supervised
 
+    @classmethod
+    def extract_renderer(cls):
+        view_classes = {
+            v for v in vars(vm).itervalues() if (
+                v is vm.PlainView)
+            # isinstance(v, type) and
+            # issubclass(v, vm.View) and
+            # v is not vm.View)
+        }
+        return {v.type_id: v.content_renderer for v in view_classes}
+
 
 if __name__ == '__main__':
     class T(Table):
         a = vm.SupervisedVariable(vm.IntegerVar(), vm.PlainView())
 
     t = T()
-    print t.extract_toc()
-    ta = t.get_access_model()
-    ta.a = 1
-    print t.vals
+    # print t.extract_toc()
+    # ta = t.get_access_model()
+    # ta.a = 1
+    # print t.vals
+    t.extract_renderer()
