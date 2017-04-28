@@ -114,8 +114,7 @@ class ImageVar(Var):
 
 class View(object):
     type_id = ''
-    view_macro = ''
-    content_renderer = ''
+    view_macro = ""
 
 
 class PlainView(View):
@@ -126,7 +125,11 @@ class PlainView(View):
         <p id="var-{{ name }}"></p>
     {%- endmacro %}
     '''
-    content_renderer = 'function (name, value) {$("#"+name).text(value);}'
+    content_render = '''
+    function (name, value){
+        $("#var-"+name).text(value)
+    }
+    '''
 
 
 class LinePlotView(View):
