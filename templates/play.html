@@ -2,8 +2,20 @@
 
 {% block body %}
 
-    <p id="a"></p>
-    <p id="show-img"></p>
-    <div id="error-message"></div>
+    {% macro plain_view(name) -%}
+        <p id="{{ name }}"></p>
+    {% endmacro %}
+
+    {% for name, attrs in toc.iteritems() %}
+        {{ name }} => {{ attrs }}
+        {% if attrs.view_type == "plain" %}
+            {{ plain_view(name) }}
+        {% elif attrs.view_type == "int"%}
+        {% endif %}
+    {% endfor %}
+
+{#    <p id="a"></p>#}
+{#    <p id="b"></p>#}
+{#    <div id="error-message"></div>#}
 
 {% endblock %}

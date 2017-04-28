@@ -15,7 +15,7 @@
             getVars(updateImageAndInteger);
         }, 1000);
 
-        toc = {a:{view_type:'plain'}};
+        toc = {{ toc|tojson }};
         renders = {
             plain: function (name, value) {$('#'+name).text(value);}
         };
@@ -33,7 +33,7 @@
         }
 
         function updateImageAndInteger(data) {
-            console.log(data)
+            console.log(data);
             for (var name in data){
                 if (data.hasOwnProperty(name)) {
                     renders[toc[name].view_type](name, data[name])

@@ -39,11 +39,7 @@ class Table(object):
                 name, info = v.extract_toc_item()
                 supervised[name] = info
 
-        return dict(supervised=supervised)
-
-    @classmethod
-    def extract_utils(cls):
-        pass
+        return supervised
 
 
 if __name__ == '__main__':
