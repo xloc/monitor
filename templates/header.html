@@ -10,18 +10,14 @@
         var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
 
+    <script type="text/javascript" src="{{ url_for('static', filename='js/var-renderer.js') }}"></script>
+
     <script type="text/javascript">
         setInterval(function () {
             getVars(updateImageAndInteger);
         }, 1000);
 
         toc = {{ toc|tojson }};
-        renders = {
-            plain: function (name, value) {$('#'+name).text(value);},
-            image: function (name, value) {
-                $('#'+name).attr("src", "data:image/png;base64, "+value);
-            }
-        };
 
         function getVars(receivedCallback) {
             $.ajax({

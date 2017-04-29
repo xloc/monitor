@@ -1,0 +1,8 @@
+{% macro plain_view(name) -%}
+    <p id="{{ name }}"></p>
+{%- endmacro %}
+
+{% macro image_view(name) -%}
+    <img src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+         id='{{ name }}' alt="Image var: {{ name }}"/>
+{%- endmacro %}
