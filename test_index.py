@@ -8,31 +8,28 @@ from storage import table_access as table
 
 if __name__ == '__main__':
 
-    # table.add_var('a', 'plain')
+    a_iter = itertools.cycle(range(0, 100))
+    b_iter = itertools.cycle(range(30, 0, -1))
+
+    imgs = None
+    with open('b64_imgs.json') as f:
+        imgs = json.load(f)
+    image_iter = itertools.cycle(imgs.itervalues())
+    image_other_iter = itertools.cycle(imgs.itervalues())
+    image_other_iter.next()
+
 
     def int_update_thread():
-        var = itertools.cycle(range(0, 100))
         while True:
-            table.a = var.next()
+            table.a = a_iter.next()
+            table.b = b_iter.next()
+            table.image = image_iter.next()
+            table.image_other = image_other_iter.next()
+
             time.sleep(1)
 
     t = threading.Thread(target=int_update_thread)
     t.setDaemon(True)
     t.start()
-
-    # table.add_var('image', 'img')
-
-    imgs = None
-    with open('b64_imgs.json') as f:
-        imgs = json.load(f)
-
-    def img_update_thread():
-        var = itertools.cycle(imgs.itervalues())
-        while True:
-            table.image = var.next()
-            time.sleep(1)
-    tg = threading.Thread(target=img_update_thread)
-    tg.setDaemon(True)
-    tg.start()
 
     app.run(debug=True)
