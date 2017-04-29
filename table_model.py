@@ -44,10 +44,14 @@ class Table(object):
 
 if __name__ == '__main__':
     class T(Table):
-        a = vm.SupervisedVariable(vm.IntegerVar(), vm.PlainView())
+        a = vm.SupervisedVariable(vm.IntegerVar(), vm.View())
+        image = vm.SupervisedVariable(vm.ImageVar(), vm.ImageView())
 
     t = T()
-    print t.extract_toc()
+    # print t.extract_toc()
     ta = t.get_access_model()
-    ta.a = 1
+    # ta.a = 1
+    # print t.vals
+
+    ta.image = "hello world"
     print t.vals

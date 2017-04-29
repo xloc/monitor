@@ -103,57 +103,42 @@ class ImageVar(Var):
     type_id = 'image'
 
     def extract_converter(self, value):
-        return str(value)
+        return value
 
     def extract_validate(self, value):
-        return isinstance(value, str)
+        return isinstance(value, (str, unicode))
 
     pass_converter = ""
     pass_validate = ""
 
 
 class View(object):
-    type_id = ''
-    view_macro = ""
-
-
-class PlainView(View):
     type_id = 'plain'
 
-    view_macro = '''
-    {% macro show_item(name) -%}
-        <p id="var-{{ name }}"></p>
-    {%- endmacro %}
-    '''
-    content_render = '''
-    function (name, value){
-        $("#var-"+name).text(value)
-    }
-    '''
+    def get_attrs(self):
+        return {k: a for k, a in self.__dict__.iteritems()}
 
 
 class LinePlotView(View):
     type_id = 'line-plot'
-
-    view_macro = ""
 
     def __init__(self, record_count=30):
         self.record_count = 30
 
 
 class TimeLineView(View):
-    view_macro = ""
+    type_id = 'time-line'
 
     def __init__(self, record_count=30):
         self.record_count = 30
 
 
 class ImageView(View):
-    view_macro = ""
+    type_id = "image"
 
 
 class EditablePlainView(View):
-    view_macro = ""
+    type_id = 'editable-plain'
 
     def __init__(self):
         pass

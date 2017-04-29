@@ -17,7 +17,10 @@
 
         toc = {{ toc|tojson }};
         renders = {
-            plain: function (name, value) {$('#'+name).text(value);}
+            plain: function (name, value) {$('#'+name).text(value);},
+            image: function (name, value) {
+                $('#'+name).attr("src", "data:image/png;base64, "+value);
+            }
         };
 
         function getVars(receivedCallback) {
