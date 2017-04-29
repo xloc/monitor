@@ -22,10 +22,14 @@
         var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
 
+    <script type="text/javascript" src="{{ url_for('static', filename='js/var-renderer.js') }}"></script>
+
     <script type="text/javascript">
         setInterval(function () {
             getVars(updateImageAndInteger);
         }, 1000);
+
+        toc = {{ toc|tojson }};
 
         function getVars(receivedCallback) {
             $.ajax({
@@ -40,10 +44,12 @@
         }
 
         function updateImageAndInteger(data) {
-            $("#show-data").html(data.a);		//绑定数据
-            $("#show-img").html(html =
-                '<img src="data:image/jpg;base64,'
-                + data.image + '">')
+            console.log(data);
+            for (var name in data){
+                if (data.hasOwnProperty(name)) {
+                    renders[toc[name].view_type](name, data[name])
+                }
+            }
         }
 
     </script>

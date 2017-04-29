@@ -4,7 +4,7 @@ import threading
 import time
 
 from monitor_server import app
-from storage import table
+from storage import table_access as table
 
 if __name__ == '__main__':
 
