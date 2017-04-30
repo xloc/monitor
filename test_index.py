@@ -1,3 +1,6 @@
+"""
+Faking some data to display
+"""
 import itertools
 import json
 import threading
@@ -8,6 +11,7 @@ from storage import table_access as table
 
 if __name__ == '__main__':
 
+    # Data prepare
     a_iter = itertools.cycle(range(0, 100))
     b_iter = itertools.cycle(range(30, 0, -1))
 
@@ -18,7 +22,7 @@ if __name__ == '__main__':
     image_other_iter = itertools.cycle(imgs.itervalues())
     image_other_iter.next()
 
-
+    # Update thread target
     def int_update_thread():
         while True:
             table.a = a_iter.next()
@@ -28,6 +32,7 @@ if __name__ == '__main__':
 
             time.sleep(1)
 
+    # Start Thread
     t = threading.Thread(target=int_update_thread)
     t.setDaemon(True)
     t.start()
