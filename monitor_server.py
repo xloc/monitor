@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, request
 from flask.templating import render_template
 
-from storage import table
-
 app = Flask(__name__)
+
+table = None
 
 
 @app.route('/')
@@ -22,6 +22,3 @@ def set_var():
     value = request.args.get('value')
     result = table.set_controlled(name, value)
     return jsonify(dict(result=result))
-
-if __name__ == '__main__':
-    app.run()
