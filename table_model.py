@@ -7,10 +7,15 @@ class TableMetaclass(type):
         if name == 'Table':
             return type.__new__(mcs, name, bases, attrs)
 
+        variables = {}
         for k, v in attrs.iteritems():
-            if isinstance(v, (vm.SupervisedVariable, vm.ControlledVariable)):
+            if isinstance(v, vm.Var):
                 if not v.name:
                     v.name = k
+
+                variables[k] = v
+                attrs.pop(k)
+        attrs['__vars__'] = variables
 
         return type.__new__(mcs, name, bases, attrs)
 
@@ -19,27 +24,19 @@ class Table(object):
     __metaclass__ = TableMetaclass
 
     def __init__(self):
-        self.vals = {}
+        self.supervised = {}
+        self.controlled = {}
 
-    def get_access_model(self):
-        class_dict = {'_vals': self.vals}
-        for v in self.__class__.__dict__.itervalues():
-            if isinstance(v, vm.SupervisedVariable):
-                class_dict[v.name] = v.get_descriptor()
-        return type('AccessTable', (object,), class_dict)()
-
-    def exchange_data(self):
-        return self.vals
+    def get_supervised(self):
+        return self.supervised
 
     @classmethod
     def extract_toc(cls):
-        supervised = {}
-        for v in cls.__dict__.itervalues():
-            if isinstance(v, vm.SupervisedVariable):
-                name, info = v.extract_toc_item()
-                supervised[name] = info
+        toc = {}
+        for name, var in cls.__vars__.iteritems():
+            toc[name] = var.get_toc_item()
 
-        return supervised
+        return toc
 
 
 if __name__ == '__main__':
@@ -48,10 +45,3 @@ if __name__ == '__main__':
         image = vm.SupervisedVariable(vm.ImageVar(), vm.ImageView())
 
     t = T()
-    # print t.extract_toc()
-    ta = t.get_access_model()
-    # ta.a = 1
-    # print t.vals
-
-    ta.image = "hello world"
-    print t.vals
