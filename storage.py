@@ -1,13 +1,15 @@
-import time
 from table_model import Table
 import variable_model as vm
 
 
 class VariableTable(Table):
-    a = vm.SupervisedVariable(vm.IntegerVar(), vm.View())
-    b = vm.SupervisedVariable(vm.IntegerVar(), vm.View())
-    image = vm.SupervisedVariable(vm.ImageVar(), vm.ImageView())
-    image_other = vm.SupervisedVariable(vm.ImageVar(), vm.ImageView())
+    a = vm.PlainSupervised()
+    b = vm.PlainSupervised()
+    f = vm.FloatSupervised()
+    g = vm.FloatSupervised(round_to=2)
+    i = vm.ImageSupervised()
+    j = vm.ImageSupervised()
+
+    c = vm.PlainControlled()
 
 table = VariableTable()
-table_access = table.get_access_model()
