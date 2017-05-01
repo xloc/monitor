@@ -52,4 +52,4 @@ table.a = 2333
 ## Achievement Demonstration
 - Install all dependency
 - Set PYTHONPATH `export PYTHONPATH=<path of monitor app>`
-- Run `python test/test_index.py`
+- Run `python tests/test_index.py`
