@@ -6,15 +6,13 @@
 {% macro image_s(name, attrs) -%}
     <div class="card">
         <div class="card-image">
-            <img id='{{ name }}' alt="Image var: {{ name }}"/>
-            <span class="card-title">{{ name }}</span>
+            <img id='{{ name }}' alt="Image var: {{ name }}"/><span class="card-title">{{ name }}</span>
         </div>
     </div>
 {%- endmacro %}
 
 {% macro float_s(name, attrs) -%}
-    <li class="collection-item">{{ name }}
-        <span id="{{ name }}" class="right">no data</span></li>
+    <li class="collection-item">{{ name }}<span id="{{ name }}" class="right">no data</span></li>
 {%- endmacro %}
 
 {% macro plain_c(name, attrs) -%}
