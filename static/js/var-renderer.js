@@ -1,6 +1,11 @@
 renders = {
-    plain: function (name, value) {$('#'+name).text(value);},
-    image: function (name, value) {
+    plain_s: function (name, value) {$('#'+name).text(value);},
+    image_s: function (name, value) {
         $('#'+name).attr("src", "data:image/png;base64, "+value);
+    },
+    float_s: function (name, value) {
+        var round_to = toc[name].round_to
+        if (round_to !== null){value = Math.round(round_to)}
+        $('#'+name).text(value)
     }
 };

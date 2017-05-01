@@ -22,35 +22,36 @@
         var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
     </script>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/var-renderer.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='js/var-renderer.js') }}"></script>
 
     <script type="text/javascript">
-        setInterval(function () {
-            getVars(updateImageAndInteger);
-        }, 1000);
-
         toc = {{ toc|tojson }};
 
-        function getVars(receivedCallback) {
+        setInterval(getVars, 1000);
+        function getVars() {
             $.ajax({
                 type: "GET",
                 url: $SCRIPT_ROOT + '/get_vars',
                 dataType: "json",
-                success: receivedCallback,
+                success: function (data) {
+                    console.log(data);
+                    for (var name in data) {
+                        if (data.hasOwnProperty(name)) {
+                            renders[toc[name].view_type](name, data[name])
+                        }
+                    }
+                },
                 error: function (error) {
                     console.error('Error during GET')
                 }
             });
         }
 
-        function updateImageAndInteger(data) {
-            console.log(data);
-            for (var name in data){
-                if (data.hasOwnProperty(name)) {
-                    renders[toc[name].view_type](name, data[name])
-                }
-            }
+        function updateVar(name) {
+
         }
+
 
     </script>
 
@@ -61,9 +62,9 @@
 {% block body %}{% endblock %}
 
 
-    <script type="text/javascript"
-            src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript"
-            src="{{ url_for('static', filename='js/materialize.js') }}"></script>
+<script type="text/javascript"
+        src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript"
+        src="{{ url_for('static', filename='js/materialize.js') }}"></script>
 </body>
 </html>

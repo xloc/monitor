@@ -16,8 +16,10 @@
     <ul class="collection">
 
     {% for name, attrs in toc.iteritems() %}
-        {% if attrs.view_type == "plain" %}
-            {{ view_templates.plain_view(name) }}
+        {% if attrs.view_type == "plain_s" %}
+            {{ view_templates.plain_s(name, attrs) }}
+        {% elif attrs.view_type == "float_s" %}
+            {{ view_templates.float_s(name, attrs) }}
         {% endif %}
 
     {% endfor %}
