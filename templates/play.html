@@ -4,8 +4,8 @@
 {% block image_zone %}
 
     <div class="container">
-        {% for name, attrs in toc.iteritems() if attrs.view_type == 'image' %}
-            {{ view_templates.image_view(name) }}
+        {% for name, attrs in toc.iteritems() if attrs.view_type == 'image_s' %}
+            {{ view_templates.image_s(name) }}
         {% endfor %}
     </div>
 

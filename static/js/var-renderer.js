@@ -5,7 +5,7 @@ renders = {
     },
     float_s: function (name, value) {
         var round_to = toc[name].round_to
-        if (round_to !== null){value = Math.round(round_to)}
+        if (round_to !== null){value = value.toFixed(round_to)}
         $('#'+name).text(value)
     }
 };

@@ -25,7 +25,7 @@ if __name__ == '__main__':
     ji.next()
 
     fi = itertools.cycle(list(numpy.sin(numpy.linspace(0, 2*numpy.pi, 10))))
-    gi = itertools.cycle(list(numpy.cos(numpy.linspace(0, 2*numpy.pi, 10))))
+    gi = itertools.cycle(list(numpy.sin(numpy.linspace(0, 2*numpy.pi, 10))))
 
     # Update thread target
     def int_update_thread():
