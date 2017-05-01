@@ -8,8 +8,23 @@ import time
 
 import numpy
 
-import monitor_server as server
-from storage import table
+import monitor
+import monitor.variable_model as vm
+
+
+class VariableTable(monitor.Table):
+    a = vm.PlainSupervised()
+    b = vm.PlainSupervised()
+    f = vm.FloatSupervised()
+    g = vm.FloatSupervised(round_to=2)
+    i = vm.ImageSupervised()
+    j = vm.ImageSupervised()
+
+    c = vm.PlainControlled(init=3.1415)
+
+table = VariableTable()
+monitor.set_tracked_table(table)
+
 
 if __name__ == '__main__':
 
@@ -43,6 +58,4 @@ if __name__ == '__main__':
     t.setDaemon(True)
     t.start()
 
-    server.table = table
-
-    server.app.run(debug=True)
+    monitor.app.run(debug=True)
