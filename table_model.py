@@ -14,7 +14,6 @@ class TableMetaclass(type):
                     v.name = k
 
                 variables[k] = v
-                attrs.pop(k)
         attrs['__vars__'] = variables
 
         return type.__new__(mcs, name, bases, attrs)
@@ -41,7 +40,12 @@ class Table(object):
 
 if __name__ == '__main__':
     class T(Table):
-        a = vm.SupervisedVariable(vm.IntegerVar(), vm.View())
-        image = vm.SupervisedVariable(vm.ImageVar(), vm.ImageView())
+        a = vm.PlainSupervised()
 
     t = T()
+    t.a = 1
+    print vars(t.__class__)
+    print t.get_supervised()
+    t.a = 2
+    print t.get_supervised()
+

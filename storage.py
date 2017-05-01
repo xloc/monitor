@@ -10,6 +10,6 @@ class VariableTable(Table):
     i = vm.ImageSupervised()
     j = vm.ImageSupervised()
 
-    c = vm.PlainControlled()
+    c = vm.PlainControlled(init=3.1415)
 
 table = VariableTable()

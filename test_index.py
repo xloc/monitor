@@ -9,7 +9,7 @@ import time
 import numpy
 
 from monitor_server import app
-from storage import table_access as table
+from storage import table
 
 if __name__ == '__main__':
 
@@ -30,12 +30,13 @@ if __name__ == '__main__':
     # Update thread target
     def int_update_thread():
         while True:
-            table.ai = ai.next()
-            table.bi = bi.next()
-            table.fi = fi.next()
-            table.gi = gi.next()
-            table.ii = ii.next()
-            table.ji = ji.next()
+            table.a = ai.next()
+            table.b = bi.next()
+            table.f = fi.next()
+            table.g = gi.next()
+            table.i = ii.next()
+            table.j = ji.next()
+            time.sleep(1)
 
     # Start Thread
     t = threading.Thread(target=int_update_thread)
