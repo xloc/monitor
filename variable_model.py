@@ -1,147 +1,61 @@
-"""
-All conversions will only compute once:
-    For SupervisedVariable, it is done by run extract_converter
-    For ControlledVariable, it is performed by converter in JS
-"""
-from numbers import Number
-
-
-class SupervisedVariable(object):
-    """
-    Set only
-
-    return ? before set: some thing represent no-data
-    """
-    def __init__(self, var, view):
-        # type: (Var, View) -> None
-        self.var = var
-        self.view = view
-
-        self.name = None
-
-    def get_descriptor(self):
-        class Variable(object):
-            def __set__(s, instance, value):
-                if not self.var.extract_validate(value):
-                    raise ValueError('Value validation failed')
-                instance._vals[self.name] = self.var.extract_converter(value)
-
-            def __get__(self, instance, owner):
-                raise AttributeError(
-                    'Should not get from a supervised variable')
-
-        return Variable()
-
-    def extract_toc_item(self):
-        return (self.name,
-                dict(var_type=self.var.type_id,
-                     view_type=self.view.type_id))
-
-
-class ControlledVariable(object):
-    """
-    Get only
-    Return ? before set: init value
-    """
-    def __init__(self):
-        pass
-
 
 class Var(object):
-    type_id = 'plain'
+    view_type = ''
 
-    def extract_converter(self, value):
-        return value
+    def __init__(self, **kwargs):
+        self.name = None
+        self.attrs = {}
 
-    def extract_validate(self, value):
-        return True
-
-    pass_validate = "function (value){return true}"
-    pass_converter = "function (value){return value}"
-
-
-class IntegerVar(Var):
-    type_id = 'int'
-
-    def extract_validate(self, value):
-        return isinstance(value, int)
-
-    pass_validate = '''function (input){
-        re=/^[1-9]+[0-9]*]*$/;return re.test(input)
-    }'''
+    def get_toc_item(self):
+        ti = {'view_type': self.view_type}
+        ti.update(self.attrs)
+        return ti
 
 
-class FloatVar(Var):
-    type_id = 'float'
+class Supervised(Var):
+    def __get__(self, instance, owner):
+        raise AttributeError('Should not get from a supervised variable')
 
-    def extract_converter(self, value):
-        return float(value)
-
-    def extract_validate(self, value):
-        return isinstance(value, Number)
-
-    pass_converter = 'function (input){return parseFloat(float)}'
-    pass_validate = '''function (input){
-        re=/^[1-9]+[0-9]*]*$/;return re.test(input)
-    }'''
+    def __set__(self, instance, value):
+        instance.supervised[self.name] = value
 
 
-class StringVar(Var):
-    type_id = 'string'
-
-    def extract_converter(self, value):
-        return str(value)
-
-    def extract_validate(self, value):
-        return isinstance(value, str)
-
-    pass_converter = ""
-    pass_validate = ""
+class PlainSupervised(Supervised):
+    view_type = 'plain_s'
 
 
-class ImageVar(Var):
-    type_id = 'image'
+class FloatSupervised(Supervised):
+    view_type = 'float_s'
 
-    def extract_converter(self, value):
-        return value
-
-    def extract_validate(self, value):
-        return isinstance(value, (str, unicode))
-
-    pass_converter = ""
-    pass_validate = ""
+    def __init__(self, round_to=None):
+        super(FloatSupervised, self).__init__()
+        self.attrs['round_to'] = round_to
 
 
-class View(object):
-    type_id = 'plain'
-
-    def get_attrs(self):
-        return {k: a for k, a in self.__dict__.iteritems()}
+class ImageSupervised(Supervised):
+    view_type = 'image_s'
 
 
-class LinePlotView(View):
-    type_id = 'line-plot'
+class Controlled(Var):
+    def __init__(self, init):
+        super(Controlled, self).__init__()
+        self.attrs['init'] = self.init = init
 
-    def __init__(self, record_count=30):
-        self.record_count = 30
+    def __get__(self, instance, owner):
+        if hasattr(instance.controlled, self.name):
+            return instance.controlled[self.name]
+        else:
+            return self.init
 
-
-class TimeLineView(View):
-    type_id = 'time-line'
-
-    def __init__(self, record_count=30):
-        self.record_count = 30
-
-
-class ImageView(View):
-    type_id = "image"
+    def __set__(self, instance, value):
+        raise AttributeError('Should not set a controlled variable')
 
 
-class EditablePlainView(View):
-    type_id = 'editable-plain'
+class PlainControlled(Controlled):
+    view_type = 'plain_c'
 
-    def __init__(self):
-        pass
+    def __init__(self, init):
+        super(PlainControlled, self).__init__(init)
 
 
 
