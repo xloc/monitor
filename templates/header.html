@@ -48,7 +48,10 @@
         }
 
         function updateVar(name) {
-            console.log(name);
+            $.getJSON('/set_var', {name: $('#' + name).attr('value')},
+                function (data) {
+                    console.log(data)
+                })
         }
 
 
