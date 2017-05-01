@@ -35,7 +35,6 @@
                 url: $SCRIPT_ROOT + '/get_vars',
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
                     for (var name in data) {
                         if (data.hasOwnProperty(name)) {
                             renders[toc[name].view_type](name, data[name])
@@ -49,7 +48,7 @@
         }
 
         function updateVar(name) {
-
+            console.log(name);
         }
 
 

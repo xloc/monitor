@@ -26,3 +26,12 @@
 
     </ul>
 {% endblock %}
+
+{% block ctrl_zone %}
+    {% for name, attrs in toc.iteritems() %}
+        {% if attrs.view_type == "plain_c" %}
+            {{ view_templates.plain_c(name, attrs) }}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
