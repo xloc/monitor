@@ -18,8 +18,10 @@ def get_vars():
 
 @app.route('/set_var')
 def set_var():
-    print request.args
-    return jsonify(dict(update='OK'))
+    name = request.args.get('name')
+    value = request.args.get('value')
+    result = table.set_controlled(name, value)
+    return jsonify(dict(result=result))
 
 if __name__ == '__main__':
     app.run()

@@ -39,16 +39,18 @@ class ImageSupervised(Supervised):
 class Controlled(Var):
     def __init__(self, init):
         super(Controlled, self).__init__()
-        self.attrs['init'] = self.init = init
+        self.attrs['init'] = self.value = init
 
     def __get__(self, instance, owner):
-        if hasattr(instance.controlled, self.name):
-            return instance.controlled[self.name]
-        else:
-            return self.init
+        return self.value
 
     def __set__(self, instance, value):
         raise AttributeError('Should not set a controlled variable')
+
+    def set_value(self, value):
+        self.value = value
+        print self.value, 'set'
+        return 0
 
 
 class PlainControlled(Controlled):

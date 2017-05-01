@@ -37,6 +37,9 @@ class Table(object):
 
         return toc
 
+    def set_controlled(self, name, value):
+        return self.__class__.__dict__[name].set_value(value)
+
 
 if __name__ == '__main__':
     class T(Table):
