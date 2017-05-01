@@ -28,7 +28,6 @@
     <script type="text/javascript">
         toc = {{ toc|tojson }};
 
-        setInterval(getVars, 1000);
         function getVars() {
             $.ajax({
                 type: "GET",
@@ -48,11 +47,27 @@
         }
 
         function updateVar(name) {
-            $.getJSON('/set_var', {'name': name, 'value': $('#' + name).attr('value')},
+            $.getJSON('/set_var', {
+                    'name': name,
+                    'value': $('#' + name).attr('value')
+                },
                 function (data) {
                     console.log(data)
                 })
         }
+
+        $(function () {
+            var getVarThread = setInterval(getVars, 1000);
+
+            $('#update-switch').click(function () {
+
+                if ($(this).prop('checked')) {
+                    getVarThread = setInterval(getVars, 1000)
+                }else{
+                    clearInterval(getVarThread)
+                }
+            })
+        })
 
 
     </script>
