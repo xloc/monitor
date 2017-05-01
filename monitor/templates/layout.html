@@ -1,0 +1,30 @@
+{% extends "header.html" %}
+
+{% block body %}
+    <nav>
+        <div class="nav-wrapper white">
+            <div class="container">
+                <a class="brand-logo grey-text">Monitor</a>
+
+                <div class="switch right">
+                    <label>Off
+                        <input type="checkbox" id="update-switch" checked>
+                        <span class="lever"></span>On
+                    </label>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col s4">
+            {% block image_zone %}{% endblock %}
+        </div>
+        <div class="col s4">
+            {% block var_zone %}{% endblock %}
+        </div>
+        <div class="col s4">
+            {% block ctrl_zone %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
